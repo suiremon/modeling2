@@ -155,7 +155,7 @@ with ui.card():
             c+=1
         if final_time > 1:
             return ui.markdown(
-            f"**Время полета:** {final_time:.5f} с<br>"
+            f"**Время полета:** {final_time} с<br>"
             f"**Конечная скорость электрона:** {final_velocity:.5f} м/с"
             )
         else:
