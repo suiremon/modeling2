@@ -154,6 +154,6 @@ with ui.card():
             tmp *= 10
             c+=1
         return ui.markdown(
-        f"**Время полета:** {tmp}*10^{c} с<br>"
+        f"**Время полета:** {tmp}⋅10^{c} с<br>"
         f"**Конечная скорость электрона:** {final_velocity:.5f} м/с"
         )
