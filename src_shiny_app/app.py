@@ -34,8 +34,8 @@ with ui.card(full_screen=True):
     input_r=ui.input_text("r", label="Введите внутренний радиус r (см):", value = "10.5"),
     input_R=ui.input_text("R", label="Введите внешний радиус R (см):",value = "22")
 ))
-def update_a(volt, dist):
-    return (electron_charge * volt) / (electron_mass * dist)
+def update_a(volt, dist, r, R):
+    return (electron_charge * volt) / (electron_mass * dist * math.log(R/r))
 
 def update_pos(pos, V, a, dt):
     return pos + V * dt + (a * dt ** 2) / 2
@@ -55,13 +55,13 @@ def binsearch(R, r, t, dt):
         tmp_U = (r_U + l_U) / 2
         y_pos = (R + r) / 2
         Vy = 0
-        a = update_a(tmp_U, y_pos)
+        a = update_a(tmp_U, y_pos, r, R)
         curr_t = 0
 
         while r <= y_pos <= R and curr_t < t:
             y_pos = update_pos(y_pos, Vy, a, dt)
             Vy = update_V(y_pos, Vy, a, dt)
-            a = update_a(tmp_U, y_pos)
+            a = update_a(tmp_U, y_pos, r, R)
             curr_t += dt
 
         if y_pos < r or y_pos > R:
@@ -99,14 +99,14 @@ with ui.card(full_screen=True):
     def plot():
         V, U, L, r, R, final_velocity, t, dt = calculate()  
         y_pos, tmp_V = (R + r) / 2, 0
-        a = update_a(U, y_pos)
+        a = update_a(U, y_pos, r, R)
         pos_data, V_arr, a_arr, t_arr = [y_pos], [tmp_V], [a], [0]
 
         curr_t = 0
         while r <= y_pos <= R and curr_t <= t:
             y_pos = update_pos(y_pos, tmp_V, a, dt)
             tmp_V = update_V(y_pos, tmp_V, a, dt)
-            a = update_a(U, y_pos)
+            a = update_a(U, y_pos, r, R)
 
             curr_t += dt
             pos_data.append(y_pos)
@@ -123,7 +123,7 @@ with ui.card(full_screen=True):
         plt.ylabel(r"$y \: (м)$")
 
         plt.subplot(2, 2, 2)
-        plt.plot(t_arr, V_arr)
+        plt.plot(t_arr, np.array(V_arr))
         plt.title(r"$График \: зависимости \: V_y(t)$")
         plt.xlabel(r"$t \: (с)$")
         plt.ylabel(r"$V_y \: (м/с)$")
