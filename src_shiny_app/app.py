@@ -149,6 +149,6 @@ with ui.card():
     def text():
         V, U, L, r, R, final_velocity, final_time, dt = calculate()  
         return ui.markdown(
-        f"**Время полета:** {final_time} с<br>"
-        f"**Конечная скорость электрона:** {final_velocity:.2f} м/с"
+        f"**Время полета:** {final_time:.5f} с<br>"
+        f"**Конечная скорость электрона:** {final_velocity:.5f} м/с"
         )
