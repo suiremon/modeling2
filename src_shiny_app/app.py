@@ -148,7 +148,7 @@ with ui.card():
     @render.ui
     def text():
         V, U, L, r, R, final_velocity, final_time, dt = calculate()
-        tmp = V
+        tmp = final_time
         c = 0
         while tmp < 1:
             tmp *= 10
