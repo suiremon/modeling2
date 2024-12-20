@@ -157,9 +157,11 @@ with ui.card():
             return ui.markdown(
             f"**Время полета:** {final_time} с<br>"
             f"**Конечная скорость электрона:** {final_velocity:.5f} м/с"
+            f"**Разность потенциалов:** {U:.5f} В"
             )
         else:
             return ui.markdown(
             f"**Время полета:** {tmp}⋅10^(-{c}) с<br>"
             f"**Конечная скорость электрона:** {final_velocity:.5f} м/с"
+            f"**Разность потенциалов:** {U:.5f} В"
             )
